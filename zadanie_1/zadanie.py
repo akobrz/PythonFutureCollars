@@ -1,4 +1,4 @@
-def drukujOprocentowanie():
+def drukuj_oprocentowanie():
 
     try:
         print("Podaj początkową wysokość kredytu:")
@@ -28,5 +28,5 @@ def drukujOprocentowanie():
                   .format(kredyt, poprzedni-kredyt))
 
 if __name__ == "__main__":
-    drukujOprocentowanie()
+    drukuj_oprocentowanie()
 
