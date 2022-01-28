@@ -19,9 +19,9 @@ def drukujOprocentowanie():
     for i in inflacja:
         poprzedni = kredyt
         kredyt = (1+((i+procent)/1200))*kredyt-rata
-        if kredyt < 0:
-            print("Twoja pozostała kwota kredytu to 0.0, to {:.6f} mniej niż w poprzednim miesiącu."
-                  .format(poprzedni))
+        if kredyt <= 0:
+            print("Twoja pozostała kwota kredytu to {:.6f}, to {:.6f} mniej niż w poprzednim miesiącu."
+                  .format(0.0, poprzedni))
             break
         else:
             print("Twoja pozostała kwota kredytu to {:.6f}, to {:.6f} mniej niż w poprzednim miesiącu."
