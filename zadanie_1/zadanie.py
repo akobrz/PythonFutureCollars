@@ -27,5 +27,6 @@ def drukujOprocentowanie():
             print("Twoja pozostała kwota kredytu to {:.6f}, to {:.6f} mniej niż w poprzednim miesiącu."
                   .format(kredyt, poprzedni-kredyt))
 
-drukujOprocentowanie()
+if __name__ == "__main__":
+    drukujOprocentowanie()
 
