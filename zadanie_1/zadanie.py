@@ -1,15 +1,22 @@
+
+def error_handler(func):
+    def wrapper():
+        try:
+            func()
+        except ValueError:
+            print("Brak danych lub niepoprawne dane")
+        return
+    return wrapper
+
+@error_handler
 def drukuj_oprocentowanie():
 
-    try:
-        print("Podaj początkową wysokość kredytu:")
-        kredyt = float(input())
-        print("Podaj oprocentowanie kredytu:")
-        procent = float(input())
-        print("Podaj kwotę raty miesięcznej:")
-        rata = float(input())
-    except ValueError:
-        print("Brak danych lub niepoprawne dane")
-        return
+    print("Podaj początkową wysokość kredytu:")
+    kredyt = float(input())
+    print("Podaj oprocentowanie kredytu:")
+    procent = float(input())
+    print("Podaj kwotę raty miesięcznej:")
+    rata = float(input())
 
     inflacja = (1.592824484, -0.453509101, 2.324671717, 1.261254407, 1.782526286, 2.329384541,
                 1.502229842, 1.782526286, 2.328848994, 0.616921348, 2.352295886, 0.337779545,
