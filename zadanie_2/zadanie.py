@@ -2,7 +2,7 @@ class Paczka:
     def __init__(self):
         self.waga = 0
 
-def error_handler(func):
+def obsluga_bledow(func):
     def wrapper():
         try:
             func()
@@ -14,8 +14,8 @@ def error_handler(func):
     return wrapper
 
 
-@error_handler
-def pobierz_paczke():
+@obsluga_bledow
+def wyslij_paczki():
     maks_waga_paczki = 20
     maks_liczba_paczek = float(input("Podaj ile paczek ma zostać wysłanych:"))
 
@@ -37,19 +37,18 @@ def pobierz_paczke():
             paczki.append(Paczka())
         paczki[-1].waga += element
 
-    if len(paczki)>0:
-        najbardziej_pusta_paczka_waga = sorted(paczki, key=lambda v: v.waga, reverse=True)[0].waga
-        najbardziej_pusta_paczka_id = 0
+    najbardziej_pusta_paczka_waga = sorted(paczki, key=lambda v: v.waga, reverse=True)[0].waga
+    najbardziej_pusta_paczka_id = 0
 
-        for i, v in enumerate(paczki):
-            if v.waga < najbardziej_pusta_paczka_waga:
-                najbardziej_pusta_paczka_id = i
+    for i, v in enumerate(paczki):
+        if v.waga < najbardziej_pusta_paczka_waga:
+            najbardziej_pusta_paczka_id = i
 
-        print(f"Wysłano {len(paczki)} paczek")
-        print(f"Wysłano łącznie {sum(x.waga for x in paczki)} kilogramów")
-        print(f"Wysłano łącznie {sum(maks_waga_paczki-x.waga for x in paczki)} pustych kilogramów")
-        print(f"Paczka nr {najbardziej_pusta_paczka_id+1} miała najwięcej pustych kilogramów: {maks_waga_paczki - paczki[najbardziej_pusta_paczka_id].waga}")
+    print(f"Wysłano {len(paczki)} paczek")
+    print(f"Wysłano łącznie {sum(x.waga for x in paczki)} kilogramów")
+    print(f"Wysłano łącznie {sum(maks_waga_paczki-x.waga for x in paczki)} pustych kilogramów")
+    print(f"Paczka nr {najbardziej_pusta_paczka_id+1} miała najwięcej pustych kilogramów: {maks_waga_paczki - paczki[najbardziej_pusta_paczka_id].waga}")
 
 
 if __name__ == "__main__":
-    pobierz_paczke()
+    wyslij_paczki()
