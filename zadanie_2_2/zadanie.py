@@ -10,7 +10,7 @@ def obsluga_bledow(func):
 
 @obsluga_bledow
 def oblicz_collatza():
-    min_liczba, maks_liczba, liczba = 1, 100, int(input("Podaj liczbę naturalną, większą od 0 i mniejszą od 100: "))
+    min_liczba, maks_liczba, liczba = 1, 100, int(input("Podaj liczbę naturalną, większą od 0 i nie większą niż 100: "))
     if maks_liczba < liczba or liczba < min_liczba:
         raise AttributeError
     print(f"Długość ciągu Collatza dla liczby {liczba} wynosi: {oblicz(liczba)}")
