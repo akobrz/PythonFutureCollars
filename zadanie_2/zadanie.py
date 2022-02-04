@@ -19,11 +19,11 @@ def obsluga_bledow(func):
 
 @obsluga_bledow
 def wyslij_paczki():
-    maks_waga_paczki, maks_liczba_paczek = 20, float(input("Podaj ile paczek ma zostać wysłanych:"))
+    maks_waga_paczki, maks_liczba_paczek = 20, int(input("Podaj ile paczek ma zostać wysłanych:"))
 
     paczki = []
 
-    if maks_liczba_paczek == 0:
+    if maks_liczba_paczek <= 0:
         raise RecursionError
 
     while len(paczki) <= maks_liczba_paczek:
