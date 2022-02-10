@@ -19,17 +19,19 @@ def obsluga_bledow(func):
 
 @obsluga_bledow
 def wyslij_paczki():
-    maks_waga_paczki, maks_liczba_paczek = 20, int(input("Podaj ile paczek ma zostać wysłanych:"))
+    maks_waga_paczki, maks_liczba_paczek = 20, int(input("Podaj ile paczek ma zostać wysłanych: "))
 
     paczki = []
 
     if maks_liczba_paczek <= 0:
-        raise RecursionError
+        raise ValueError
 
     while len(paczki) <= maks_liczba_paczek:
         element = float(input("Dodajesz element do paczki. Podaj jego wagę:"))
         if element > 10 or 1 > element > 0:
             raise AttributeError
+        if len(paczki) == 0 and element == 0:
+            raise RecursionError
         if len(paczki) == 0 or paczki[-1].waga + element > maks_waga_paczki and len(paczki) < maks_liczba_paczek:
             paczki.append(Paczka())
         if element == 0 or paczki[-1].waga + element > maks_waga_paczki and len(paczki) == maks_liczba_paczek:
