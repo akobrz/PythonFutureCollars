@@ -1,0 +1,1 @@
+python accountant.py zakup jetson 40000 5

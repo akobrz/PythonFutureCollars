@@ -1,0 +1,7 @@
+saldo
+1000000
+wpłata początkowa
+saldo
+-140000
+zus
+stop

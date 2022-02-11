@@ -1,0 +1,19 @@
+saldo
+1000000
+wpłata początkowa
+saldo
+-140000
+zus
+zakup
+raspberry
+15000
+5
+sprzedaż
+raspberry
+25000
+5
+zakup 
+jetson
+40000 
+5
+stop
