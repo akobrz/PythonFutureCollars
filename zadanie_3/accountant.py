@@ -1,4 +1,6 @@
+from tools import Blad, BladObsluga
 import sys
+
 
 class Operacja:
     def __init__(self):
@@ -10,35 +12,13 @@ class Operacja:
         self.produkty = []
         self.typ = ""
 
+
 class Firma:
     def __init__(self):
         self.saldo = 0
         self.magazyn = {}
         self.operacje = []
 
-class Blad(Exception):
-    def __init__(self, id):
-        self.id = id
-
-def BladObsluga(func):
-    def wrapper(args):
-        try:
-            func(args)
-        except ValueError:
-            print("Błąd - niepoprawne dane")
-        except Blad as e:
-            if e.id == 1:
-                print("Błąd - brak poprawnych argumentów")
-            if e.id == 2:
-                print("Błąd - saldo ujemne")
-            if e.id == 3:
-                print("Bład - brak towaru")
-            if e.id == 4:
-                print("Błąd - cena ujemna")
-            if e.id == 5:
-                print("Błąd - ilość towaru ujemna")
-        return
-    return wrapper
 
 @BladObsluga
 def accountant(args):
@@ -47,17 +27,17 @@ def accountant(args):
 
     while True:
         o = Operacja()
-        o.typ = input().encode('windows-1250').decode('utf8')
+        o.typ = input().encode('windows-1250').decode('utf8').strip()
         if o.typ in ("saldo", "sprzedaż", "zakup"):
             if o.typ == "saldo":
                 o.kwota = int(input())
-                o.opis = input().encode('windows-1250').decode('utf8')
+                o.opis = input().encode('windows-1250').decode('utf8').strip()
             elif o.typ == "zakup":
-                o.produkt = input().encode('windows-1250').decode('utf8')
+                o.produkt = input().encode('windows-1250').decode('utf8').strip()
                 o.cena = int(input())
                 o.sztuk = int(input())
             elif o.typ == "sprzedaż":
-                o.produkt = input().encode('windows-1250').decode('utf8')
+                o.produkt = input().encode('windows-1250').decode('utf8').strip()
                 o.cena = int(input())
                 o.sztuk = int(input())
             f.operacje.append(o)
@@ -79,17 +59,17 @@ def accountant(args):
         if o.typ == "saldo":
             f.saldo += o.kwota
         elif o.typ in ("zakup", "sprzedaż"):
-            if o.kwota < 0:
+            if o.cena < 0:
                 raise Blad(4)
             if o.sztuk < 0:
                 raise Blad(5)
             if o.typ == "zakup":
-                f.saldo -= o.kwota * o.sztuk
+                f.saldo -= o.cena * o.sztuk
                 if f.saldo < 0:
                     raise Blad(2)
                 f.magazyn[o.produkt] = f.magazyn.get(o.produkt, 0) + o.sztuk
             elif o.typ == "sprzedaż":
-                f.saldo += o.kwota * o.sztuk
+                f.saldo += o.cena * o.sztuk
                 f.magazyn[o.produkt] = f.magazyn.get(o.produkt, 0) - o.sztuk
                 if f.magazyn[o.produkt] < 0:
                     raise Blad(3)
@@ -98,9 +78,8 @@ def accountant(args):
         if args[0] == "konto":
             print(f"Saldo: {f.saldo}")
         if args[0] == "magazyn":
-            for n, v in f.magazyn.items():
-                if v > 0:
-                    print(f"{n}: {v}")
+            for v in args[1:]:
+                print(f"{v}: {f.magazyn.get(v, 0)}")
         if args[0] == "przegląd":
             DrukujOperacje(f.operacje, int(args[1]), int(args[2]))
     else:
@@ -117,8 +96,6 @@ def DrukujOperacje(operacje, min=0, max=sys.maxsize):
                 if o.typ in ("zakup", "sprzedaż"):
                     print(f"{o.produkt}\n{o.cena}\n{o.sztuk}")
     print("stop")
-
-
 
 
 if __name__ == "__main__":
