@@ -73,14 +73,9 @@ def bazaszkolna(args):
                 print(wychowawca)
                 wychowawcy.append(wychowawca)
     elif phrase in [uczen for klasa in szkola.values() for uczen in klasa.uczniowie]:
-        przedmioty = [nauczyciel.przedmiot for klasa in szkola.values()
-                      for nauczyciel in klasa.nauczyciele if phrase in klasa.uczniowie]
-        nauczyciele = [nauczyciel.nazwa for klasa in szkola.values()
-                       for nauczyciel in klasa.nauczyciele if phrase in klasa.uczniowie]
-        for e in zip(przedmioty, nauczyciele):
-            print(e[0])
-            print(e[1])
-
+        for p, n in [(nauczyciel.przedmiot, nauczyciel.nazwa) for klasa in szkola.values()
+                      for nauczyciel in klasa.nauczyciele if phrase in klasa.uczniowie]:
+            print(f"{p}\n{n}")
 
 if __name__ == "__main__":
     bazaszkolna(sys.argv[1:])
