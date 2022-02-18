@@ -1,0 +1,32 @@
+> python bazaszkolna.py 1a
+Krzysztof Baczynski
+Jan Brzechwa
+Jan Długosz
+Eliza Orzeszkowa
+
+> python bazaszkolna.py 2c
+
+Juliusz Slowacki
+Julian Tuwim
+Stanisław Wyspianski
+
+> python bazaszkolna.py "Krzysztof Baczynski"
+Jan Brzechwa
+Jan Dlugosz
+Aleksander Fredro
+Witold Gombrowicz
+Hanna Krall
+Zygmunt Krasinski
+Jan Andrzej Morsztyn
+
+> python bazaszkolna.py "Henryk Sienkiewicz"
+Krzysztof Baczynski
+Jan Brzechwa
+
+> python bazaszkolna.py "Zygmunt Krasiński"
+Język Polski
+Maria Konopnicka
+Fizyka
+Stanisław Lem
+Historia
+Henryk Sienkiewicz
