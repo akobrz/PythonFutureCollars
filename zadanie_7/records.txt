@@ -1,0 +1,12 @@
+2022-04-03,Nie bêdzie padaæ
+2022-04-04,Bêdzie padaæ
+2022-04-05,Bêdzie padaæ
+2022-04-06,Bêdzie padaæ
+2022-04-07,Nie bêdzie padaæ
+2022-04-08,Nie bêdzie padaæ
+2022-04-09,Bêdzie padaæ
+2022-04-10,Bêdzie padaæ
+2022-04-11,Nie bêdzie padaæ
+2022-04-12,Bêdzie padaæ
+2022-04-13,Nie bêdzie padaæ
+2022-04-14,Bêdzie padaæ
