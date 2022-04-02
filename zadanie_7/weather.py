@@ -29,9 +29,9 @@ class Weather:
 
 	def get_forecast(self):
 		url = "https://community-open-weather-map.p.rapidapi.com/forecast/daily"
-		querystring = {"q": "Lodz,pl", "lat": self.lat, "lon": self.lon, "id": "2172797", "units": "metric", "mode": "JSON", "cnt": 16}
-		headers = {"X-RapidAPI-Host": "community-open-weather-map.p.rapidapi.com", "X-RapidAPI-Key": self.key}
-		req = requests.request("GET", url, headers=headers, params=querystring)
+		query = {"q": "Lodz,pl", "lat": self.lat, "lon": self.lon, "id": "2172797", "units": "metric", "mode": "JSON", "cnt": 16}
+		header = {"X-RapidAPI-Host": "community-open-weather-map.p.rapidapi.com", "X-RapidAPI-Key": self.key}
+		req = requests.request("GET", url, headers=header, params=query)
 		if req.status_code == 200:
 			return json.loads(req.text)
 		else:
@@ -39,9 +39,9 @@ class Weather:
 
 	def get_historical(self, historical_date):
 		url = "https://community-open-weather-map.p.rapidapi.com/onecall/timemachine"
-		querystring = {"lat": self.lat, "lon": self.lon, "id": "2172797", "units": "metric", "mode": "JSON", "dt": f"{self.convert_date2unix(self.date2check)}"}
-		headers = {"X-RapidAPI-Host": "community-open-weather-map.p.rapidapi.com", "X-RapidAPI-Key": self.key}
-		req = requests.request("GET", url, headers=headers, params=querystring)
+		query = {"lat": self.lat, "lon": self.lon, "id": "2172797", "units": "metric", "mode": "JSON", "dt": f"{self.convert_date2unix(self.date2check)}"}
+		header = {"X-RapidAPI-Host": "community-open-weather-map.p.rapidapi.com", "X-RapidAPI-Key": self.key}
+		req = requests.request("GET", url, headers=header, params=query)
 		if req.status_code == 200:
 			return json.loads(req.text)
 		else:
@@ -67,10 +67,10 @@ class Weather:
 		if self.check_in_file():
 			self.load_from_file()
 		elif self.today > self.date2check:
-			j = w.get_historical(self.date2check)
+			j = self.get_historical(self.date2check)
 			self.save_to_file(self.date2check, self.value_answer_past(j["current"]["weather"][0]["description"]))
 		else:
-			for day in w.get_forecast()["list"]:
+			for day in self.get_forecast()["list"]:
 				if self.convert_unix2date(day["dt"]) == self.date2check:
 					self.save_to_file(self.date2check, self.value_answer_future(day["weather"][0]["description"]))
 					return
