@@ -1,5 +1,4 @@
 import flask
-import sys
 from accountant import manager
 
 config = {
@@ -43,8 +42,8 @@ def full_history():
     operations = manager.execute("odczytaj", file_name)
     return flask.render_template("history.html", operations=operations)
 
-@app.route('/history/<line_from>/<line_to>', methods=['GET', 'POST'])
-@app.route('/history/<line_from>/<line_to>/', methods=['GET', 'POST'])
+@app.route('/history/<line_from>/<line_to>', methods=['GET'])
+@app.route('/history/<line_from>/<line_to>/', methods=['GET'])
 def short_history(line_from, line_to):
     operations = manager.execute("odczytaj", file_name)
     return flask.render_template("history.html", operations=operations[int(line_from):int(line_to)])
