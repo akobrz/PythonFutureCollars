@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <head>
+        <title>Menu</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h3 class="mx-2">Shop</h3>
+        <div class="container">
+            <div class="columns">
+                <div class="col-4">
+                    <div class="form-group, mx-2">
+                        <form method="post">
+                            <h4 class="text-success">Store</h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-primary">Article</th>
+                                        <th class="text-primary">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for article in store.items() %}
+                                        <tr>
+                                            <td>{{ article[0] }}</td>
+                                            <td>{{ article[1] }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <br/>
+                            <div class="float-right">
+                                <label class="form-label, text-success">Saldo: {{saldo}}</label>
+                            </div>
+                            <br/>
+                        </form>
+                        <label class="form-label, col-1, text-error">{{invalid_data}}</label>
+                        <form method="post">
+                            <br/>
+                            <h4 class="text-success">Buying</h4>
+                            <label class="form-label" for="buy_name">Product:</label>
+                            <input class="form-input" id="buy_name" type="text" name="buy_name">
+                            <label class="form-label" for="buy_cost">Cost:</label>
+                            <input class="form-input" id="buy_cost" type="text" name="buy_cost">
+                            <label class="form-label" for="buy_amount">Amount:</label>
+                            <input class="form-input" id="buy_amount" type="text" name="buy_amount">
+                            <br/>
+                            <button class="btn btn-success" type="submit">Buy</button>
+                            <br/>
+                        </form>
+                        <form method="post">
+                            <br/>
+                            <h4 class="text-success">Selling</h4>
+                            <label class="form-label" for="sell_name">Product:</label>
+                            <input class="form-input" id="sell_name" type="text" name="sell_name">
+                            <label class="form-label" for="sell_cost">Cost:</label>
+                            <input class="form-input" id="sell_cost" type="text" name="sell_cost">
+                            <label class="form-label" for="sell_amount">Amount:</label>
+                            <input class="form-input" id="sell_amount" type="text" name="sell_amount">
+                            <br/>
+                            <button class="btn btn-success" type="submit">Sell</button>
+                            <br/>
+                        </form>
+                        <form method="post">
+                            <br/>
+                            <h4 class="text-success">Cash Operation</h4>
+                            <label class="form-label, col-1, text-error">{{cash_error}}</label>
+                            <label class="form-label" for="cash_info">Info:</label>
+                            <input class="form-input" id="cash_info" type="text" name="cash_info">
+                            <label class="form-label" for="cash_amount">Amount:</label>
+                            <input class="form-input" id="cash_amount" type="text" name="cash_amount">
+                            <br/>
+                            <button class="btn btn-success" type="submit">Procede</button>
+                            <br/>
+                        </form>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <head>
+        <title>Menu</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h3 class="mx-2">Operations</h3>
+        <div class="container">
+            <div class="columns">
+                <div class="col-6">
+                    <div class="form-group, mx-2">
+                        <form method="post">
+                            <h4 class="text-success">History</h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-primary">Type</th>
+                                        <th class="text-primary">Value</th>
+                                        <th class="text-primary">Info</th>
+                                        <th class="text-primary">Product</th>
+                                        <th class="text-primary">Price</th>
+                                        <th class="text-primary">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for operation in operations %}
+                                        <tr>
+                                            <td>{{ operation.typ }}</td>
+                                            <td>{{ operation.kwota }}</td>
+                                            <td>{{ operation.opis }}</td>
+                                            <td>{{ operation.produkt }}</td>
+                                            <td>{{ operation.cena }}</td>
+                                            <td>{{ operation.sztuk }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <br/>
+                        </form>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
