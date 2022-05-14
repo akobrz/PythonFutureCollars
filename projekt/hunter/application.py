@@ -4,7 +4,8 @@ import flask_sqlalchemy
 
 config = {
     "DEBUG": True,
-    "SQLALCHEMY_DATABASE_URI": "sqlite:///..\\database\\hunter.db"
+    "SQLALCHEMY_DATABASE_URI": "sqlite:///..\\database\\hunter.db",
+    "SQLALCHEMY_TRACK_MODIFICATIONS": True
 }
 
 app = flask.Flask(__name__)

@@ -1,3 +1,4 @@
+# Olx
 olx_akceptuj = "//button[@id='onetrust-accept-btn-handler']"
 olx_cena_od = "//li[@id='param_price']/div[2]/div[1]/a[1]/span[1]"
 olx_cena_do = "//li[@id='param_price']/div[2]/div[2]/a[1]/span[1]"
