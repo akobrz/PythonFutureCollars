@@ -16,7 +16,7 @@ class Reader():
         with open(self.path_in, "r") as f:
             if self.file_in == ".csv":
                 self.data = [row for row in csv.reader(f)]
-            if self.file_in == ".json":
+            if self.file_in == ".private":
                 self.data = json.load(f)
         with open(self.path_in, "rb") as f:
             if self.file_in == ".pickle":
@@ -26,7 +26,7 @@ class Reader():
         if self.file_out == ".csv":
             with open(self.path_out, 'w', newline='') as f:
                 csv.writer(f).writerows(self.data)
-        if self.file_out == ".json":
+        if self.file_out == ".private":
             with open(self.path_out, 'w', newline='') as f:
                 json.dump(self.data, f)
         if self.file_out == ".pickle":

@@ -43,6 +43,6 @@ raspberry
 20
 zakup
 raspberry
--5000
+1000
 10
 stop

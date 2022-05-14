@@ -31,11 +31,11 @@ class ReaderCsv(Base):
 class ReaderJson(Base):
     def loader(self):
         with open(self.path_in, "r") as f:
-            if self.ext_in == ".json":
+            if self.ext_in == ".private":
                 self.data = json.load(f)
 
     def saver(self):
-        if self.ext_out == ".json":
+        if self.ext_out == ".private":
             with open(self.path_out, 'w', newline='') as f:
                 json.dump(self.data, f)
 
