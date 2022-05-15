@@ -1,4 +1,4 @@
-from projekt.hunter.application import db
+from projekt.application import db
 
 class Offer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -13,6 +13,8 @@ class Offer(db.Model):
     read = db.Column(db.Integer, unique=False, nullable=True, default=1)
     last = db.Column(db.TEXT, unique=False, nullable=True)
     active = db.Column(db.Integer, unique=False, nullable=True, default=True)
+    street = db.Column(db.String(254), unique=False, nullable=True)
+    info = db.Column(db.String(2048), unique=False, nullable=True)
 
     def __repr__(self):
         return f"({self.id}, {self.city}, {self.district}, {self.price}, {self.title}, {self.date}, {self.read}, {self.last}, {self.active})"
@@ -33,6 +35,9 @@ class Offer(db.Model):
 
     def load_all(self):
         return db.session.query(Offer).all()
+
+    def __lt__(self, other):
+        return int(self.price) < int(other.price)
 
 if __name__ == "__main__":
     db.create_all()

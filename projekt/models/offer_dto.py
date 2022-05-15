@@ -1,7 +1,7 @@
 from projekt.models import offer
 from datetime import date, datetime
 
-class Olx:
+class OfferDTO:
 
     date_format = "%Y-%m-%d"
 
@@ -18,6 +18,8 @@ class Olx:
         self.last = date.today()
         self.read = 1
         self._active = 1
+        self.street = ""
+        self.info = ""
 
     @property
     def price(self):
@@ -66,10 +68,12 @@ class Olx:
         o.read = self.read
         o.last = self.last.strftime(self.date_format)
         o.active = self.active
+        o.street = self.street
+        o.info = self.info
         return o
 
     def transfer_from_offer(self, offer):
-        record = Olx()
+        record = OfferDTO()
         record.id = offer.id
         record.region = offer.region
         record.city = offer.city
@@ -82,6 +86,8 @@ class Olx:
         record.read = offer.read
         record.last = datetime.strptime(offer.last, self.date_format)
         record.active = offer.active
+        record.street = offer.street
+        record.info = offer.info
         return record
 
     def __eq__(self, other):
@@ -101,6 +107,6 @@ class Olx:
 
 
 if __name__ == "__main__":
-    olx = Olx()
+    olx = OfferDTO()
     olx.price = "900 000 zł"
     print(olx.price)

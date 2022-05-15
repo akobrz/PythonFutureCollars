@@ -1,10 +1,4 @@
 from json import load, dump
-from projekt.hunter import const
-
-
-def initialize_json():
-    const.DB_SERVER, const.DB_NAME, const.DB_USER, const.DB_PASSWORD = read_json("json\\db.json")
-
 
 # fn - file name
 def read_json(fn):

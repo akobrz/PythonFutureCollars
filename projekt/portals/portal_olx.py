@@ -1,5 +1,6 @@
+import json
 from projekt.hunter import xpaths, tools
-from projekt.models import olx, criteria, offer
+from projekt.models import offer_dto, criteria, offer
 
 
 class Portal_Olx:
@@ -31,11 +32,13 @@ class Portal_Olx:
             wraps1 = zip(wraps1_ref, wraps1_img, wraps1_price)
 
             for w in wraps1:
-                record = olx.Olx()
+                record = offer_dto.OfferDTO()
                 record.ref = w[0].get_attribute("href")
                 record.img = w[1].get_attribute("src")
                 record.title = w[1].get_attribute("alt")
                 record.price = w[2].text
+                record.region = "lodzkie"
+                record.city = "lodz"
                 if record.is_in_db():
                     new_record = record.get_from_db()
                     new_record.set_last()
@@ -45,24 +48,33 @@ class Portal_Olx:
                     record.transfer_to_offer().save()
 
         if self.sel.locate_and_count_repeater(xpaths.olx_wrap2) > 0:
-            pass
-                # print(w[0].get_attribute("href"), w[1].get_attribute("src"), w[1].get_attribute("alt"), w[2].text)
-                # x = w.findElement(By.XPATH, "//td[@class='offer']/div/table/tbody/tr[1]/td[1]/a/img")
-                # print(w.findElement(by=By.XPATH, value=xpaths.olx_wrap1_ref).getAttribute("href"))
-                # print(self.sel.locate_and_get_attribute_repeater(xpaths.olx_wrap1_img, "src"))
-                # print(self.sel.locate_and_get_attribute_repeater(xpaths.olx_wrap1_img, "alt"))
-                # print(self.sel.locate_and_get_text_repeater(xpaths.olx_wrap1_price))
+            wraps2_json = self.sel.locate_and_get_xpaths_repeater(xpaths.olx_wrap2)
+            wraps2_ref = self.sel.locate_and_get_xpaths_repeater(xpaths.olx_wrap2_ref)
+            wraps2_img = self.sel.locate_and_get_xpaths_repeater(xpaths.olx_wrap2_img)
+            wraps2 = zip(wraps2_ref, wraps2_img, wraps2_json)
 
-        # wraps2 = self.sel.locate_and_get_xpaths_repeater(xpaths.olx_wrap2)
+            for w in wraps2:
+                record = offer_dto.OfferDTO()
+                record.ref = w[0].get_attribute("href")
+                record.img = w[1].get_attribute("src")
+                record.title = w[1].get_attribute("alt")
+                j = json.loads(w[2].get_attribute("data-features"))
+                record.price = j.get("ad_price")
+                record.region = j.get("region_name")
+                record.city = j.get("city_name")
+                record.district = j.get("district_name")
 
-        # for w in wraps2:
-        #     j = json.loads(w.get_attribute("data-features"))
-        #     print(j.get("ad_id"), j.get("ad_price"), j.get("region_name"), j.get("city_name"), j.get("district_name"))
+                if record.is_in_db():
+                    new_record = record.get_from_db()
+                    new_record.set_last()
+                    new_record.set_read()
+                    new_record.transfer_to_offer().update()
+                else:
+                    record.transfer_to_offer().save()
 
-        # sel.send_text_and_check_repeater(xpaths.olx_cena_od, "650000 zł", 0)
         self.close()
 
 if __name__ == "__main__":
-    olx = olx.Olx()
+    olx = offer_dto.OfferDTO()
     olx.price = "900 000 zł"
     print(olx.price)

@@ -1,4 +1,4 @@
-from projekt.hunter.application import db
+from projekt.application import db
 
 class Criteria(db.Model):
     id = db.Column(db.Integer, primary_key=True)
