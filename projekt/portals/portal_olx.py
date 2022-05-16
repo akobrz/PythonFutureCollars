@@ -1,5 +1,5 @@
 import json
-from projekt.hunter import xpaths, tools
+from projekt.services import xpaths, tools
 from projekt.models import offer_dto, criteria, offer
 
 
@@ -16,9 +16,9 @@ class Portal_Olx:
 
     def open_url(self, page):
         self.crit = criteria.load()
-        self.url = f"https://www.olx.pl/nieruchomosci/domy/lodz/?search%5Bfilter_float_price%3Afrom%5D=" \
-                   f"{self.crit.price_from}&search%5Bfilter_float_price%3Ato%5D=" \
-                   f"{self.crit.price_to}&search%5Bfilter_float_m%3Afrom%5D=90&page={page}"
+        self.url = f"https://www.olx.pl/nieruchomosci/domy/lodz/?search%5Bfilter_float_price%3Afrom%5D={self.crit.price_min}" \
+                   f"&search%5Bfilter_float_price%3Ato%5D={self.crit.price_max}" \
+                   f"&search%5Bfilter_float_m%3Afrom%5D=90&page={page}"
         return self.url
 
     def load_page(self, page):
@@ -43,9 +43,9 @@ class Portal_Olx:
                     new_record = record.get_from_db()
                     new_record.set_last()
                     new_record.set_read()
-                    new_record.transfer_to_offer().update()
+                    new_record.to_offer().update()
                 else:
-                    record.transfer_to_offer().save()
+                    record.to_offer().save()
 
         if self.sel.locate_and_count_repeater(xpaths.olx_wrap2) > 0:
             wraps2_json = self.sel.locate_and_get_xpaths_repeater(xpaths.olx_wrap2)
@@ -68,9 +68,9 @@ class Portal_Olx:
                     new_record = record.get_from_db()
                     new_record.set_last()
                     new_record.set_read()
-                    new_record.transfer_to_offer().update()
+                    new_record.to_offer().update()
                 else:
-                    record.transfer_to_offer().save()
+                    record.to_offer().save()
 
         self.close()
 

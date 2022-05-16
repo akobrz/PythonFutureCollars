@@ -23,8 +23,9 @@
                                         <th class="text-primary">Street</th>
                                         <th class="text-primary">Price</th>
                                         <th class="text-primary">Title</th>
-                                        <th class="text-primary">Date</th>
+                                        <th class="text-primary">First</th>
                                         <th class="text-primary">Last</th>
+                                        <th class="text-primary">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,8 +43,9 @@
                                             <td>{{ house.street }}</td>
                                             <td>{{ house.price }}</td>
                                             <td>{{ house.title }}</td>
-                                            <td>{{ house.date }}</td>
+                                            <td>{{ house.first }}</td>
                                             <td>{{ house.last }}</td>
+                                            <td><a href="" name="delete">delete</a></td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>

@@ -4,11 +4,12 @@ class Criteria(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String(254), unique=False, nullable=True)
     district = db.Column(db.String(254), unique=False, nullable=True)
-    price_from = db.Column(db.Integer, unique=False, nullable=True)
-    price_to = db.Column(db.Integer, unique=False, nullable=True)
+    price_min = db.Column(db.Integer, unique=False, nullable=True)
+    price_max = db.Column(db.Integer, unique=False, nullable=True)
+    area = db.Column(db.Integer, unique=False, nullable=True)
 
     def __repr__(self):
-        return f"({self.id}, {self.city}, {self.district}, {self.price_from}, {self.price_to})"
+        return f"({self.id}, {self.city}, {self.district}, {self.price_min}, {self.price_max}, {self.area})"
 
 def save(criteria):
     db.session.add(criteria)
@@ -20,7 +21,7 @@ def load():
 if __name__ == "__main__":
     # db.create_all()
     c = Criteria()
-    c.price_from = 550000
-    c.price_to = 850000
+    c.price_min = 550000
+    c.price_max = 850000
     save(c)
     pass

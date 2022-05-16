@@ -9,7 +9,7 @@ class Offer(db.Model):
     ref = db.Column(db.String(1024), unique=False, nullable=True)
     img = db.Column(db.String(1024), unique=False, nullable=True)
     title = db.Column(db.String(254), unique=False, nullable=True)
-    date = db.Column(db.TEXT, unique=False, nullable=True)
+    first = db.Column(db.TEXT, unique=False, nullable=True)
     read = db.Column(db.Integer, unique=False, nullable=True, default=1)
     last = db.Column(db.TEXT, unique=False, nullable=True)
     active = db.Column(db.Integer, unique=False, nullable=True, default=True)
@@ -17,7 +17,7 @@ class Offer(db.Model):
     info = db.Column(db.String(2048), unique=False, nullable=True)
 
     def __repr__(self):
-        return f"({self.id}, {self.city}, {self.district}, {self.price}, {self.title}, {self.date}, {self.read}, {self.last}, {self.active})"
+        return f"({self.id}, {self.city}, {self.district}, {self.price}, {self.title}, {self.first}, {self.read}, {self.last}, {self.active})"
 
     def save(self):
         db.session.add(self)
@@ -35,6 +35,9 @@ class Offer(db.Model):
 
     def load_all(self):
         return db.session.query(Offer).all()
+
+    def load_active_all(self):
+        return db.session.query(Offer).filter(Offer.active==1).all()
 
     def __lt__(self, other):
         return int(self.price) < int(other.price)

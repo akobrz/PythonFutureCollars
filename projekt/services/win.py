@@ -9,7 +9,7 @@ from selenium.common.exceptions import (
     JavascriptException,
     StaleElementReferenceException,
     ElementNotInteractableException)
-from projekt.hunter import db, ex
+from projekt.services import db, ex
 
 
 # custom exception for screen element

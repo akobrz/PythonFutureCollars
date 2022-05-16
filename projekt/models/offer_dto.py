@@ -14,12 +14,20 @@ class OfferDTO:
         self.ref = ""
         self.img = ""
         self.title = ""
-        self.date = date.today()
-        self.last = date.today()
-        self.read = 1
+        self._first = date.today()
+        self._last = date.today()
+        self._read = 1
         self._active = 1
         self.street = ""
         self.info = ""
+
+    @property
+    def first(self):
+        return self._first
+
+    @first.setter
+    def first(self, f):
+        self._first = f
 
     @property
     def price(self):
@@ -28,7 +36,7 @@ class OfferDTO:
     @price.setter
     def price(self, p):
         if isinstance(p, str):
-            self._price = int("".join([d for d in p if d.isdigit()]))
+            self._price = int("0"+"".join([d for d in p if d.isdigit()]))
         else:
             self._price = p
 
@@ -48,13 +56,21 @@ class OfferDTO:
     def last(self, l):
         self._last = l
 
+    @property
+    def read(self):
+        return self._read
+
+    @read.setter
+    def read(self, r):
+        self._read = r
+
     def set_last(self):
         self.last = datetime.today()
 
     def set_read(self):
-        self.read = (self.last - self.date).days + 1
+        self.read = (self.last - self.first).days + 1
 
-    def transfer_to_offer(self):
+    def to_offer(self):
         o = offer.Offer()
         o.id = self.id
         o.region = self.region
@@ -64,7 +80,7 @@ class OfferDTO:
         o.ref = self.ref
         o.img = self.img
         o.title = self.title
-        o.date = self.date.strftime(self.date_format)
+        o.first = self.first.strftime(self.date_format)
         o.read = self.read
         o.last = self.last.strftime(self.date_format)
         o.active = self.active
@@ -72,7 +88,7 @@ class OfferDTO:
         o.info = self.info
         return o
 
-    def transfer_from_offer(self, offer):
+    def from_offer(self, offer):
         record = OfferDTO()
         record.id = offer.id
         record.region = offer.region
@@ -82,7 +98,7 @@ class OfferDTO:
         record.ref = offer.ref
         record.img = offer.img
         record.title = offer.title
-        record.date = datetime.strptime(offer.date, self.date_format)
+        record.first = datetime.strptime(offer.first, self.date_format)
         record.read = offer.read
         record.last = datetime.strptime(offer.last, self.date_format)
         record.active = offer.active
@@ -95,14 +111,14 @@ class OfferDTO:
 
     def is_in_db(self):
         for o in offer.Offer().load_all():
-            if self.transfer_from_offer(o) == self:
+            if self.from_offer(o) == self:
                 return True
         return False
 
     def get_from_db(self):
         for o in offer.Offer().load_all():
-            if self.transfer_from_offer(o) == self:
-                return self.transfer_from_offer(o)
+            if self.from_offer(o) == self:
+                return self.from_offer(o)
         return None
 
 
