@@ -34,7 +34,7 @@ def main():
         elif 'cash_info' in f and (len(f['cash_info']) == 0 or len(f['cash_amount']) == 0):
             w = "WARNING, incomplete cash operation data"
     s, m = manager.execute("magazynuj", manager.execute("odczytaj", file_name))
-    return flask.render_template("view.html", store=m, saldo=s, invalid_data=w)
+    return flask.render_template("view_price.html", store=m, saldo=s, invalid_data=w)
 
 @app.route('/history', methods=['GET'])
 @app.route('/history/', methods=['GET'])

@@ -30,14 +30,40 @@ class Offer(db.Model):
         db.session.add(m)
         db.session.commit()
 
+    def update_after_edit(self):
+        m = db.session.query(Offer).filter(Offer.id==self.id).first()
+        m.price = self.price
+        m.area = self.area
+        m.city = self.city
+        m.district = self.district
+        m.street = self.street
+        m.info = self.info
+        db.session.add(m)
+        db.session.commit()
+
+    def disable_by_id(self, id):
+        m = db.session.query(Offer).filter(Offer.id==id).first()
+        m.active = 0
+        db.session.add(m)
+        db.session.commit()
+
+    def enable_by_id(self, id):
+        m = db.session.query(Offer).filter(Offer.id==id).first()
+        m.active = 1
+        db.session.add(m)
+        db.session.commit()
+
     def load_by_id(self, id):
-        return db.session.filter(Offer.id==id).first()
+        return db.session.query(Offer).filter(Offer.id==id).first()
 
     def load_all(self):
         return db.session.query(Offer).all()
 
     def load_active_all(self):
         return db.session.query(Offer).filter(Offer.active==1).all()
+
+    def load_disabled_all(self):
+        return db.session.query(Offer).filter(Offer.active==0).all()
 
     def __lt__(self, other):
         return int(self.price) < int(other.price)

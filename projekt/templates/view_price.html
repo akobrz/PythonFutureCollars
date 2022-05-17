@@ -13,7 +13,7 @@
                 <div class="col-8">
                     <div class="form-group, mx-2">
                         <form method="post">
-                            <h4 class="text-success">View houses</h4>
+                            <h4 class="text-success">View houses ordered by price</h4>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -25,7 +25,8 @@
                                         <th class="text-primary">Title</th>
                                         <th class="text-primary">First</th>
                                         <th class="text-primary">Last</th>
-                                        <th class="text-primary">Delete</th>
+                                        <th class="text-primary">Disable</th>
+                                        <th class="text-primary">Edit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,11 +46,17 @@
                                             <td>{{ house.title }}</td>
                                             <td>{{ house.first }}</td>
                                             <td>{{ house.last }}</td>
-                                            <td><a href="" name="delete">delete</a></td>
+                                            <td><a href="/disable/price/{{ house.id }}" id={{house.id}}>disable</a></td>
+                                            <td><a href="/edit/price/{{ house.id }}" id={{house.id}}>edit</a></td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
+                            <br/>
+                        </form>
+                        <form method="post">
+                            <br/>
+                                <button style="height:100px;width:200px" class="btn btn-success" type="submit" name="view" value="menu">Menu</button>
                             <br/>
                         </form>
                         <br/>

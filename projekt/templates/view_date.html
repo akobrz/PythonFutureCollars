@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+    <head>
+        <title>View</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="columns">
+                <div class="col-8">
+                    <div class="form-group, mx-2">
+                        <form method="post">
+                            <h4 class="text-success">View houses ordered by date</h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-primary">Photo</th>
+                                        <th class="text-primary">City</th>
+                                        <th class="text-primary">District</th>
+                                        <th class="text-primary">Street</th>
+                                        <th class="text-primary">Price</th>
+                                        <th class="text-primary">Title</th>
+                                        <th class="text-primary">First</th>
+                                        <th class="text-primary">Last</th>
+                                        <th class="text-primary">Disable</th>
+                                        <th class="text-primary">Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for house in houses %}
+                                        <tr >
+                                            <td headers="200px" width="150px">
+                                                <div>
+                                                    <a href={{house.ref}}>
+                                                        <img style="max-width: 100%" src={{house.img}}>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>{{ house.city }}</td>
+                                            <td>{{ house.district }}</td>
+                                            <td>{{ house.street }}</td>
+                                            <td>{{ house.price }}</td>
+                                            <td>{{ house.title }}</td>
+                                            <td>{{ house.first }}</td>
+                                            <td>{{ house.last }}</td>
+                                            <td><a href="/disable/date/{{ house.id }}" id={{house.id}}>disable</a></td>
+                                            <td><a href="/edit/date/{{ house.id }}" id={{house.id}}>edit</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <br/>
+                        </form>
+                        <form method="post">
+                            <br/>
+                                <button style="height:100px;width:200px" class="btn btn-success" type="submit" name="view" value="menu">Menu</button>
+                            <br/>
+                        </form>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

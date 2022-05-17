@@ -40,7 +40,7 @@ def main():
             else:
                 warning = "WARNING, incomplete cash operation data"
     s, m = manager.execute("magazynuj", manager.execute("odczytaj"))
-    return flask.render_template("view.html", store=m, saldo=s, invalid_data=warning)
+    return flask.render_template("view_price.html", store=m, saldo=s, invalid_data=warning)
 
 
 @app.route('/history', methods=['GET'])
