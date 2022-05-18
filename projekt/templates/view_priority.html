@@ -9,7 +9,7 @@
     </head>
     <body>
         <br/>
-        <h3 class="mx-2">View disabled houses</h3>
+        <h3 class="mx-2">View prioritized houses</h3>
         <div class="container">
             <div class="columns">
                 <div class="col-1, mx-2">
@@ -38,6 +38,7 @@
                                         <th class="text-primary">First</th>
                                         <th class="text-primary">Last</th>
                                         <th class="text-primary">Disable</th>
+                                        <th class="text-primary">Edit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -57,7 +58,8 @@
                                             <td>{{ house.title }}</td>
                                             <td>{{ house.first }}</td>
                                             <td>{{ house.last }}</td>
-                                            <td><a href="/enable/{{ house.id }}" id={{house.id}}>enable</a></td>
+                                            <td><a href="/disable/priority/{{ house.id }}" id={{house.id}}>disable</a></td>
+                                            <td><a href="/edit/priority/{{ house.id }}" id={{house.id}}>edit</a></td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>

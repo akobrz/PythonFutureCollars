@@ -42,11 +42,11 @@ class OfferDTO:
 
     @property
     def active(self):
-        return bool(self._active)
+        return self._active
 
     @active.setter
     def active(self, a):
-        self._active = 1 if a else 0
+        self._active = a
 
     @property
     def last(self):
@@ -69,6 +69,9 @@ class OfferDTO:
 
     def set_read(self):
         self.read = (self.last - self.first).days + 1
+
+    def set_priority(self):
+        self.active = 2
 
     def to_offer(self):
         o = offer.Offer()
@@ -103,7 +106,7 @@ class OfferDTO:
         record.last = datetime.strptime(offer.last, self.date_format)
         record.active = offer.active
         record.street = offer.street
-        record.info = offer.info
+        record.info = str(offer.info)
         return record
 
     def __eq__(self, other):

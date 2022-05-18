@@ -8,36 +8,46 @@
         <meta charset="utf-8" />
     </head>
     <body>
+        <br/>
+        <h3 class="mx-2">{{house.title}}</h3>
+        <br/>
         <div class="container">
-            <div class="form-group, mx-2, col-4">
-                <form method="post">
-                    <h4 class="text-success">Editor</h4>
-                    <div>
-                        <a href={{house.ref}}>
-                            <img style="max-width: 100%" src={{house.img}}>
-                        </a>
-                    </div>
-                    <span>{{house.title}}</span>
-                    <br/><br/>
-                    <label class="form-label" for="input-price">Price</label>
-                    <input class="form-input" type="number" id="input-price" name="input-price" value={{house.price}}>
-                    <label class="form-label" for="input-area">Area</label>
-                    <input class="form-input" type="number" id="input-area" name="input-area" value={{house.area}}>
-                    <label class="form-label" for="input-city">City</label>
-                    <input class="form-input" type="text" id="input-city" name="input-city" value={{house.city}}>
-                    <label class="form-label" for="input-district">District</label>
-                    <input class="form-input" type="text" id="input-district" name="input-district" value={{house.district}}>
-                    <label class="form-label" for="input-street">Street</label>
-                    <input class="form-input" type="text" id="input-street" name="input-street" value={{house.street}}>
-                    <label class="form-label" for="input-info">Info</label>
-                    <input class="form-input" type="text" id="input-info" name="input-info" value={{house.info}}>
-                    <br/>
-                        <button style="height:100px;width:200px" class="btn btn-success" type="submit" name="save" value={{house.id}}>Save</button>
-                    <br/>
-                    <br/>
-                        <button style="height:100px;width:200px" class="btn btn-success" type="submit" name="cancel" value={{house.id}}>Cancel</button>
-                    <br/>
-                </form>
+            <div class="columns col-gapless">
+                <div class="column col-4 mx-2">
+                    <a href={{house.ref}}>
+                        <img style="max-width: 100%" src={{house.img}}>
+                    </a>
+                </div>
+                <div class="column col-4 mx-2">
+                    <form method="post">
+                        <label class="form-label" for="input-price">Price</label>
+                        <input class="form-input" type="number" id="input-price" name="input-price" value={{house.price}}>
+                        <label class="form-label" for="input-area">Area</label>
+                        <input class="form-input" type="number" id="input-area" name="input-area" value={{house.area}}>
+                        <label class="form-label" for="input-city">City</label>
+                        <input class="form-input" type="text" id="input-city" name="input-city" value={{house.city}}>
+                        <label class="form-label" for="input-district">District</label>
+                        <input class="form-input" type="text" id="input-district" name="input-district" value={{house.district}}>
+                        <label class="form-label" for="input-street">Street</label>
+                        <input class="form-input" type="text" id="input-street" name="input-street" value={{house.street}}>
+                        <label class="form-label" for="input-info">Info</label>
+                        <input class="form-input" type="text" id="input-info" name="input-info" value={{house.info}}>
+                        <div class="columns col-gapless">
+                            <div class="column col-5">
+                                <br/>
+                                <button style="height:100px;width:200px" class="btn btn-success" type="submit" name="save" value={{house.id}}>Save</button>
+                                <br/>
+                            </div>
+                            <div class="column col-5 mx-2">
+                                <br/>
+                                <button style="height:100px;width:200px" class="btn btn-error" type="submit" name="cancel" value={{house.id}}>Cancel</button>
+                                <br/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
             </div>
         </div>
     </body>

@@ -53,11 +53,20 @@ class Offer(db.Model):
         db.session.add(m)
         db.session.commit()
 
+    def priority_by_id(self, id):
+        m = db.session.query(Offer).filter(Offer.id==id).first()
+        m.active = 2
+        db.session.add(m)
+        db.session.commit()
+
     def load_by_id(self, id):
         return db.session.query(Offer).filter(Offer.id==id).first()
 
     def load_all(self):
         return db.session.query(Offer).all()
+
+    def load_priority_all(self):
+        return db.session.query(Offer).filter(Offer.active==2).all()
 
     def load_active_all(self):
         return db.session.query(Offer).filter(Offer.active==1).all()

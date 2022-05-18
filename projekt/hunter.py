@@ -19,13 +19,23 @@ def main():
             refresh_data()
             return flask.redirect(flask.request.path)
         elif 'view' in f.keys():
-            if 'price' in f.values():
+            if 'priority' in f.values():
+                return flask.redirect("/view/priority")
+            elif 'price' in f.values():
                 return flask.redirect("/view/price")
             elif 'read' in f.values():
                 return flask.redirect("/view/date")
             elif 'disabled' in f.values():
                 return flask.redirect("/view/disabled")
     return flask.render_template("menu.html")
+
+@application.app.route('/view/priority', methods=['GET', 'POST'])
+def view_priority():
+    f = flask.request.form
+    if flask.request.method == 'POST':
+        if 'menu' in f.values():
+            return flask.redirect("/")
+    return flask.render_template("view_priority.html", houses=Services().get_priority_order_by_read())
 
 @application.app.route('/view/date', methods=['GET', 'POST'])
 def view_date():
@@ -66,10 +76,30 @@ def disable_price(id):
     offer.Offer().disable_by_id(id)
     return flask.redirect("/view/price")
 
+@application.app.route('/priority/date/<id>', methods=['GET', 'POST'])
+def priority_date(id):
+    offer.Offer().priority_by_id(id)
+    return flask.redirect("/view/date")
+
+@application.app.route('/priority/price/<id>', methods=['GET', 'POST'])
+def priority_price(id):
+    offer.Offer().priority_by_id(id)
+    return flask.redirect("/view/price")
+
 @application.app.route('/enable/<id>', methods=['GET', 'POST'])
 def enable(id):
     offer.Offer().enable_by_id(id)
     return flask.redirect("/view/price")
+
+@application.app.route('/edit/priority/<id>', methods=['GET', 'POST'])
+def edit_priority(id):
+    f = flask.request.form
+    if flask.request.method == 'POST':
+        if 'save' in f.keys():
+            Services().update_after_save(f)
+        return flask.redirect("/view/priority")
+    h = offer.Offer().load_by_id(id)
+    return flask.render_template("edit.html", house=h)
 
 @application.app.route('/edit/date/<id>', methods=['GET', 'POST'])
 def edit_date(id):

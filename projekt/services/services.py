@@ -4,6 +4,10 @@ import operator
 
 class Services:
 
+    def get_priority_order_by_read(self):
+        houses = [OfferDTO().from_offer(h) for h in Offer().load_priority_all()]
+        return sorted(houses, key=operator.attrgetter('read'))
+
     def get_active_order_by_price(self):
         houses = [OfferDTO().from_offer(h) for h in Offer().load_active_all()]
         return sorted(houses, key=operator.attrgetter('price'))
@@ -27,8 +31,6 @@ class Services:
         return sorted(houses, key=operator.attrgetter('read'))
 
     def update_after_save(self, f):
-        # ImmutableMultiDict([('input-price', '850000'), ('input-area', ''), ('input-city', 'lodz'), ('input-district', ''), ('input-street', ''), ('input-info', ''), ('save', '109')])
-        # ImmutableMultiDict([('input-price', '659000'), ('input-area', ''), ('input-city', 'lodz'), ('input-district', 'Widzew'), ('input-street', ''), ('input-info', ''), ('cancel', '66')])
         o = Offer()
         o.id = int(f.get('save'))
         o.price = f.get('input-price', '')
@@ -36,5 +38,5 @@ class Services:
         o.city = f.get('input-city', '')
         o.district = f.get('input-district', '')
         o.street = f.get('input-street', '')
-        o.info = f.get('input-info', '')
+        o.info = str(f.get('input-info', ''))
         o.update_after_edit()

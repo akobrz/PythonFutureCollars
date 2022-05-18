@@ -8,33 +8,44 @@
         <meta charset="utf-8" />
     </head>
     <body>
+        <br/>
         <h3 class="mx-2">House Hunter</h3>
         <div class="container">
             <div class="columns">
-                <div class="col-4">
-                    <div class="form-group, mx-2" >
-                        <form method="post">
-                            <br/>
-                                <button style="height:100px;width:200px" class="btn btn-success" type="submit" name="refresh" value="refresh">Refresh</button>
-                            <br/>
-                        </form>
-                        <form method="post">
-                            <br/>
-                            <button style="height:100px;width:200px" class="btn btn-success" type="submit" name="view" value="price">View by price</button>
-                            <br/>
-                        </form>
-                        <form method="post">
-                            <br/>
-                            <button style="height:100px;width:200px" class="btn btn-success" type="submit" name="view" value="read">View by date</button>
-                            <br/>
-                        </form>
-                        <form method="post">
-                            <br/>
-                            <button style="height:100px;width:200px" class="btn btn-success" type="submit" name="view" value="disabled">View disabled</button>
-                            <br/>
-                        </form>
+                <div class="col-1, mx-2">
+                    <form method="post">
                         <br/>
-                    </div>
+                            <button style="height:100px;width:200px" class="btn btn-primary" type="submit" name="refresh" value="refresh">Refresh</button>
+                        <br/>
+                    </form>
+                </div>
+                <div class="col-1, mx-2">
+                    <form method="post">
+                        <br/>
+                            <button style="height:100px;width:200px" class="btn btn-success" type="submit" name="view" value="priority">View prioritized</button>
+                        <br/>
+                    </form>
+                </div>
+                <div class="col-1, mx-2">
+                    <form method="post">
+                        <br/>
+                            <button style="height:100px;width:200px" class="btn btn-secondary" type="submit" name="view" value="price">View by price</button>
+                        <br/>
+                    </form>
+                </div>
+                <div class="col-1, mx-2">
+                    <form method="post">
+                        <br/>
+                            <button style="height:100px;width:200px" class="btn btn-secondary" type="submit" name="view" value="read">View by date</button>
+                        <br/>
+                    </form>
+                </div>
+                <div class="col-1, mx-2">
+                    <form method="post">
+                        <br/>
+                            <button style="height:100px;width:200px" class="btn btn-error" type="submit" name="view" value="disabled">View disabled</button>
+                        <br/>
+                    </form>
                 </div>
             </div>
         </div>
