@@ -1,4 +1,5 @@
 from projekt.models.offer import Offer
+from projekt.models.criteria import Criteria
 from projekt.models.offer_dto import OfferDTO
 import operator
 
@@ -30,7 +31,7 @@ class Services:
         houses = [OfferDTO().from_offer(h) for h in Offer().load_active_all()]
         return sorted(houses, key=operator.attrgetter('read'))
 
-    def update_after_save(self, f):
+    def update_offer_after_save(self, f):
         o = Offer()
         o.id = int(f.get('save'))
         o.price = f.get('input-price', '')
@@ -40,3 +41,11 @@ class Services:
         o.street = f.get('input-street', '')
         o.info = str(f.get('input-info', ''))
         o.update_after_edit()
+
+    def update_criteria_after_save(self, f):
+        criteria = Criteria()
+        criteria.price_min = f.get('input-price-min', 0)
+        criteria.price_max = f.get('input-price-max', 0)
+        criteria.area = f.get('input-area', 0)
+        criteria.update_after_edit()
+

@@ -15,7 +15,7 @@ class Portal_Olx:
         self.sel.close()
 
     def open_url(self, page):
-        self.crit = criteria.load()
+        self.crit = criteria.Criteria().load()
         self.url = f"https://www.olx.pl/nieruchomosci/domy/lodz/?search%5Bfilter_float_price%3Afrom%5D={self.crit.price_min}" \
                    f"&search%5Bfilter_float_price%3Ato%5D={self.crit.price_max}" \
                    f"&search%5Bfilter_float_m%3Afrom%5D=90&page={page}"

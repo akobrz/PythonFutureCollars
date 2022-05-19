@@ -1,5 +1,5 @@
 from projekt.portals import portal_olx, portal_otodom
-from projekt.models import offer
+from projekt.models import offer, criteria
 from projekt.services.services import Services
 from projekt import application
 import flask
@@ -96,7 +96,7 @@ def edit_priority(id):
     f = flask.request.form
     if flask.request.method == 'POST':
         if 'save' in f.keys():
-            Services().update_after_save(f)
+            Services().update_offer_after_save(f)
         return flask.redirect("/view/priority")
     h = offer.Offer().load_by_id(id)
     return flask.render_template("edit.html", house=h)
@@ -106,7 +106,7 @@ def edit_date(id):
     f = flask.request.form
     if flask.request.method == 'POST':
         if 'save' in f.keys():
-            Services().update_after_save(f)
+            Services().update_offer_after_save(f)
         return flask.redirect("/view/date")
     h = offer.Offer().load_by_id(id)
     return flask.render_template("edit.html", house=h)
@@ -116,10 +116,21 @@ def edit_price(id):
     f = flask.request.form
     if flask.request.method == 'POST':
         if 'save' in f.keys():
-            Services().update_after_save(f)
+            Services().update_offer_after_save(f)
         return flask.redirect("/view/price")
     h = offer.Offer().load_by_id(id)
     return flask.render_template("edit.html", house=h)
+
+@application.app.route('/criteria', methods=['GET', 'POST'])
+def edit_criteria():
+    f = flask.request.form
+    if flask.request.method == 'POST':
+        if 'save' in f.keys():
+            Services().update_criteria_after_save(f)
+        return flask.redirect("/")
+    crit = criteria.Criteria().load()
+    return flask.render_template("criteria.html", crit=crit)
+
 
 def start_app():
     application.app.run()

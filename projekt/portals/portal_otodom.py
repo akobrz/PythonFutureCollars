@@ -13,7 +13,7 @@ class Portal_otodom:
         self.sel.close()
 
     def open_url(self, page):
-        self.crit = criteria.load()
+        self.crit = criteria.Criteria().load()
         self.url = f"https://www.otodom.pl/pl/oferty/sprzedaz/dom/lodz?priceMin={self.crit.price_min}" \
                    f"&priceMax={self.crit.price_max}" \
                    f"&areaMin={self.crit.area}" \

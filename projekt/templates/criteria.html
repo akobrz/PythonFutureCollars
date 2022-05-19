@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+    <head>
+        <title>House Hunter</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <br/>
+        <h3 class="mx-2">Criteria</h3>
+        <br/>
+        <div class="container">
+            <div class="columns col-gapless">
+                <div class="column col-3 mx-2">
+                    <form method="post">
+                        <label class="form-label" for="input-price-min">Price min.</label>
+                        <input class="form-input" type="number" id="input-price-min" name="input-price-min" value={{crit.price_min}}>
+                        <label class="form-label" for="input-price-max">Price max.</label>
+                        <input class="form-input" type="number" id="input-price-max" name="input-price-max" value={{crit.price_max}}>
+                        <label class="form-label" for="input-area">Area</label>
+                        <input class="form-input" type="number" id="input-area" name="input-area" value={{crit.area}}>
+                        <div class="columns col-gapless">
+                            <div class="column col-5">
+                                <br/>
+                                <button style="height:100px;width:200px" class="btn btn-success" type="submit" name="save" value="criteria">Save</button>
+                                <br/>
+                            </div>
+                            <div class="column col-5 mx-2">
+                                <br/>
+                                <button style="height:100px;width:200px" class="btn btn-error" type="submit" name="cancel" value="criteria">Cancel</button>
+                                <br/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </body>
+</html>

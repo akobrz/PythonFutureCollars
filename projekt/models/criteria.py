@@ -11,17 +11,21 @@ class Criteria(db.Model):
     def __repr__(self):
         return f"({self.id}, {self.city}, {self.district}, {self.price_min}, {self.price_max}, {self.area})"
 
-def save(criteria):
-    db.session.add(criteria)
-    db.session.commit()
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
-def load():
-    return db.session.query(Criteria).first()
+    def load(self):
+        return db.session.query(Criteria).first()
+
+    def update_after_edit(self):
+        m = db.session.query(Criteria).filter(Criteria.id==1).first()
+        m.price_min = self.price_min
+        m.price_max = self.price_max
+        m.area = self.area
+        db.session.add(m)
+        db.session.commit()
 
 if __name__ == "__main__":
     # db.create_all()
-    c = Criteria()
-    c.price_min = 550000
-    c.price_max = 850000
-    save(c)
     pass
