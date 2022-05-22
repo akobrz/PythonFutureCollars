@@ -1,5 +1,6 @@
 from projekt.portals import portal_olx, portal_otodom
 from projekt.models import offer, criteria
+from projekt.services import variables
 from projekt.services.services import Services
 from projekt import application
 import flask
@@ -7,13 +8,11 @@ import flask
 
 
 def refresh_data():
-    TARGET_HOUSE = "dom"
-    TARGET_FLAT = "mieszkanie"
 
     # portal_olx.Portal_Olx().load_page(1)
     # portal_olx.Portal_Olx().load_page(2)
-    portal_otodom.Portal_otodom().load(TARGET_HOUSE)
-    portal_otodom.Portal_otodom().load(TARGET_FLAT)
+    portal_otodom.Portal_otodom().load(variables.TARGET_HOUSE)
+    portal_otodom.Portal_otodom().load(variables.TARGET_FLAT)
 
 
 @application.app.route('/', methods=['GET', 'POST'])
@@ -126,16 +125,25 @@ def edit_price(id):
     h = offer.Offer().load_by_id(id)
     return flask.render_template("edit.html", house=h)
 
-@application.app.route('/criteria', methods=['GET', 'POST'])
-def edit_criteria():
+@application.app.route('/criteria/house', methods=['GET', 'POST'])
+def criteria_house():
     f = flask.request.form
     if flask.request.method == 'POST':
         if 'save' in f.keys():
-            Services().update_criteria_after_save(f)
+            Services().update_criteria_after_save(f, variables.TARGET_HOUSE)
         return flask.redirect("/")
-    crit = criteria.Criteria().load()
+    crit = criteria.Criteria().load(variables.TARGET_HOUSE)
     return flask.render_template("criteria.html", crit=crit)
 
+@application.app.route('/criteria/flat', methods=['GET', 'POST'])
+def criteria_flat():
+    f = flask.request.form
+    if flask.request.method == 'POST':
+        if 'save' in f.keys():
+            Services().update_criteria_after_save(f, variables.TARGET_FLAT)
+        return flask.redirect("/")
+    crit = criteria.Criteria().load(variables.TARGET_FLAT)
+    return flask.render_template("criteria.html", crit=crit)
 
 def start_app():
     application.app.run()

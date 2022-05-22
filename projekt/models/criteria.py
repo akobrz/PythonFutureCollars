@@ -1,4 +1,5 @@
 from projekt.application import db
+from projekt.services import variables
 
 class Criteria(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -7,19 +8,20 @@ class Criteria(db.Model):
     price_min = db.Column(db.Integer, unique=False, nullable=True)
     price_max = db.Column(db.Integer, unique=False, nullable=True)
     area = db.Column(db.Integer, unique=False, nullable=True)
+    target = db.Column(db.String(10), unique=False, nullable=True)
 
     def __repr__(self):
-        return f"({self.id}, {self.city}, {self.district}, {self.price_min}, {self.price_max}, {self.area})"
+        return f"({self.id}, {self.city}, {self.district}, {self.price_min}, {self.price_max}, {self.area}, {self.target})"
 
     def save(self):
         db.session.add(self)
         db.session.commit()
 
-    def load(self):
-        return db.session.query(Criteria).first()
+    def load(self, target):
+        return db.session.query(Criteria).filter(Criteria.target==target).first()
 
-    def update_after_edit(self):
-        m = db.session.query(Criteria).filter(Criteria.id==1).first()
+    def update_after_edit(self, target):
+        m = db.session.query(Criteria).filter(Criteria.target==target).first()
         m.price_min = self.price_min
         m.price_max = self.price_max
         m.area = self.area
@@ -28,9 +30,17 @@ class Criteria(db.Model):
 
 if __name__ == "__main__":
     db.create_all()
-    c = Criteria()
-    c.area = 75
-    c.price_min = 500000
-    c.price_max = 900000
-    c.save()
+    h = Criteria()
+    h.area = 110
+    h.price_min = 600000
+    h.price_max = 850000
+    h.target = variables.TARGET_HOUSE
+    h.save()
+    f = Criteria()
+    f.area = 75
+    f.price_min = 500000
+    f.price_max = 650000
+    f.target = variables.TARGET_FLAT
+    f.save()
+
     pass

@@ -1,6 +1,7 @@
 from projekt.models.offer import Offer
 from projekt.models.criteria import Criteria
 from projekt.models.offer_dto import OfferDTO
+from projekt.services import variables
 import operator
 
 class Services:
@@ -42,10 +43,10 @@ class Services:
         o.info = str(f.get('input-info', ''))
         o.update_after_edit()
 
-    def update_criteria_after_save(self, f):
+    def update_criteria_after_save(self, f, target):
         criteria = Criteria()
         criteria.price_min = f.get('input-price-min', 0)
         criteria.price_max = f.get('input-price-max', 0)
         criteria.area = f.get('input-area', 0)
-        criteria.update_after_edit()
+        criteria.update_after_edit(target)
 

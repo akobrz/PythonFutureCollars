@@ -1,6 +1,6 @@
 import json
-from projekt.services import xpaths, tools
-from projekt.models import offer_dto, criteria, offer
+from projekt.services import xpaths, tools, db
+from projekt.models import offer_dto, criteria
 
 class Portal_otodom:
 
@@ -14,7 +14,7 @@ class Portal_otodom:
         self.sel.close()
 
     def open_url(self, page, target):
-        self.crit = criteria.Criteria().load()
+        self.crit = criteria.Criteria().load(target)
         self.url = f"https://www.otodom.pl/pl/oferty/sprzedaz/{target}/lodz?priceMin={self.crit.price_min}" \
                    f"&priceMax={self.crit.price_max}" \
                    f"&areaMin={self.crit.area}" \
@@ -25,6 +25,7 @@ class Portal_otodom:
         self.open(1, target)
         self.sel.locate_and_click_xpath_repeater(xpaths.oto_akceptuj, 0)
         number = self.sel.locate_and_get_text_repeater(xpaths.oto_number)
+        self.close()
         return int(number)
 
     def load_page(self, page, target):
@@ -58,9 +59,9 @@ class Portal_otodom:
     def load(self, target):
         number = self.load_number(target)
         if number > 0:
-            pages = number // 100
-            print(pages)
+            pages = number // 100 + 1
             for page in range(1, pages+1):
+                db.db_log(f"INFO, reading page: {page} / {pages}")
                 self.load_page(page, target)
 
 if __name__ == "__main__":
