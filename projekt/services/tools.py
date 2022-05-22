@@ -158,6 +158,25 @@ class Sel(win.Win):
         WebDriverWait(self.driver, variables.WAIT_SEC_2).until(EC.visibility_of_element_located((By.XPATH, xpath)))
         return True
 
+    @display_func_name
+    def locate_and_get_text_repeater(self, xpath, id=0):
+
+        @xpath_exception_handler(1)
+        def step1(xpath):
+            WebDriverWait(self.driver, variables.WAIT_SEC_2).until(EC.presence_of_element_located((By.XPATH, xpath)))
+            WebDriverWait(self.driver, variables.WAIT_SEC_2).until(EC.visibility_of_element_located((By.XPATH, xpath)))
+            return True
+
+        @xpath_exception_handler(1)
+        def step2(xpath):
+            return self.driver.find_element_by_xpath(xpath).text
+
+        start_time = datetime.now().timestamp()
+        while datetime.now().timestamp() - start_time < variables.WAIT_SEC_120:
+            if step1(xpath):
+                return step2(xpath)
+        raise xpathException(id)
+
 if __name__ == "__main__":
     print("sel library")
     a = ()

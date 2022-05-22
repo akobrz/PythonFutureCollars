@@ -4,12 +4,17 @@ from projekt.services.services import Services
 from projekt import application
 import flask
 
+
+
 def refresh_data():
-    portal_olx.Portal_Olx().load_page(1)
-    portal_olx.Portal_Olx().load_page(2)
-    portal_otodom.Portal_otodom().load_page(1)
-    portal_otodom.Portal_otodom().load_page(2)
-    portal_otodom.Portal_otodom().load_page(3)
+    TARGET_HOUSE = "dom"
+    TARGET_FLAT = "mieszkanie"
+
+    # portal_olx.Portal_Olx().load_page(1)
+    # portal_olx.Portal_Olx().load_page(2)
+    portal_otodom.Portal_otodom().load(TARGET_HOUSE)
+    portal_otodom.Portal_otodom().load(TARGET_FLAT)
+
 
 @application.app.route('/', methods=['GET', 'POST'])
 def main():

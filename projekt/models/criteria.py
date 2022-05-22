@@ -27,5 +27,10 @@ class Criteria(db.Model):
         db.session.commit()
 
 if __name__ == "__main__":
-    # db.create_all()
+    db.create_all()
+    c = Criteria()
+    c.area = 75
+    c.price_min = 500000
+    c.price_max = 900000
+    c.save()
     pass
