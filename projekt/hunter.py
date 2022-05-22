@@ -39,7 +39,8 @@ def view_priority():
     if flask.request.method == 'POST':
         if 'menu' in f.values():
             return flask.redirect("/")
-    return flask.render_template("view_priority.html", houses=Services().get_priority_order_by_read())
+    houses = Services().get_priority_order_by_read()
+    return flask.render_template("view_priority.html", houses=houses, number=len(houses))
 
 @application.app.route('/view/date', methods=['GET', 'POST'])
 def view_date():
@@ -47,7 +48,8 @@ def view_date():
     if flask.request.method == 'POST':
         if 'menu' in f.values():
             return flask.redirect("/")
-    return flask.render_template("view_date.html", houses=Services().get_active_order_by_read())
+    houses = Services().get_active_order_by_read()
+    return flask.render_template("view_date.html", houses=houses, number=len(houses))
 
 @application.app.route('/view/price', methods=['GET', 'POST'])
 def view_price():
@@ -55,7 +57,8 @@ def view_price():
     if flask.request.method == 'POST':
         if 'menu' in f.values():
             return flask.redirect("/")
-    return flask.render_template("view_price.html", houses=Services().get_active_order_by_price())
+    houses = Services().get_active_order_by_price()
+    return flask.render_template("view_price.html", houses=houses, number=len(houses))
 
 @application.app.route('/view/disabled', methods=['GET', 'POST'])
 def view_disabled():
@@ -63,7 +66,8 @@ def view_disabled():
     if flask.request.method == 'POST':
         if 'menu' in f.values():
             return flask.redirect("/")
-    return flask.render_template("view_disabled.html", houses=Services().get_disabled_order_by_last())
+    houses = Services().get_disabled_order_by_last()
+    return flask.render_template("view_disabled.html", houses=houses, number=len(houses))
 
 @application.app.route('/refresh', methods=['GET', 'POST'])
 def refreshing():
@@ -79,6 +83,11 @@ def disable_date(id):
 def disable_price(id):
     offer.Offer().disable_by_id(id)
     return flask.redirect("/view/price")
+
+@application.app.route('/disable/priority/<id>', methods=['GET', 'POST'])
+def disable_priority(id):
+    offer.Offer().disable_by_id(id)
+    return flask.redirect("/view/priority")
 
 @application.app.route('/priority/date/<id>', methods=['GET', 'POST'])
 def priority_date(id):
