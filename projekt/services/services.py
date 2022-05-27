@@ -3,6 +3,7 @@ from projekt.models.criteria import Criteria
 from projekt.models.offer_dto import OfferDTO
 from projekt.services import variables
 import operator
+from datetime import date
 
 class Services:
 
@@ -16,8 +17,6 @@ class Services:
 
     def get_active_order_by_first(self):
         houses = [OfferDTO().from_offer(h) for h in Offer().load_active_all()]
-        h = sorted(houses, key=operator.attrgetter('first'))
-        print([x.first for x in h])
         return sorted(houses, key=operator.attrgetter('first'))
 
     def get_active_order_by_last(self):

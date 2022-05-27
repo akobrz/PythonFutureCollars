@@ -1,19 +1,24 @@
 from projekt.portals import portal_olx, portal_otodom
-from projekt.models import offer, criteria
+from projekt.models import offer, criteria, offer_dto
 from projekt.services import variables
 from projekt.services.services import Services
 from projekt import application
+from datetime import date
 import flask
 
 
-
 def refresh_data():
-
     # portal_olx.Portal_Olx().load_page(1)
     # portal_olx.Portal_Olx().load_page(2)
     portal_otodom.Portal_otodom().load(variables.TARGET_HOUSE)
     portal_otodom.Portal_otodom().load(variables.TARGET_FLAT)
 
+def disable_old_offers():
+    houses = [h for h in offer.Offer().load_all()]
+    for house in houses:
+        if house.last != str(date.today()) and house.active > 0:
+            house.active = 0
+            house.update_after_edit()
 
 @application.app.route('/', methods=['GET', 'POST'])
 def main():
@@ -21,6 +26,7 @@ def main():
         f = flask.request.form
         if 'refresh' in f.values():
             refresh_data()
+            disable_old_offers()
             return flask.redirect(flask.request.path)
         elif 'view' in f.keys():
             if 'priority' in f.values():
@@ -72,6 +78,7 @@ def view_disabled():
 @application.app.route('/refresh', methods=['GET', 'POST'])
 def refreshing():
     refresh_data()
+    disable_old_offers()
     return flask.redirect("/")
 
 @application.app.route('/disable/date/<id>', methods=['GET', 'POST'])

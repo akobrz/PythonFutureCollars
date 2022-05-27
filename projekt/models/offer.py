@@ -15,6 +15,7 @@ class Offer(db.Model):
     active = db.Column(db.Integer, unique=False, nullable=True, default=True)
     street = db.Column(db.String(254), unique=False, nullable=True)
     info = db.Column(db.String(2048), unique=False, nullable=True)
+    area = db.Column(db.Integer, unique=False, nullable=True, default=0)
 
     def __repr__(self):
         return f"({self.id}, {self.city}, {self.district}, {self.price}, {self.title}, {self.first}, {self.read}, {self.last}, {self.active})"

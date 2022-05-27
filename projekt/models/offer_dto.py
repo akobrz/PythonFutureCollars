@@ -125,6 +125,8 @@ class OfferDTO:
         return None
 
 
+
+
 if __name__ == "__main__":
     olx = OfferDTO()
     olx.price = "900 000 zł"
